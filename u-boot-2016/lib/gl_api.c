@@ -175,14 +175,9 @@ int check_config()
 }
 
 int check_fw_type(void *address){
-	u32 *sign_flas=(u32 *)(address+0x5c);
 	u16 *sign_55aa=(u16 *)(address+0x1fe);
 	u32 *sign_doodfeed=(u32 *)address;
 	u32 *sign_ubi=(u32 *)address;
-
-	if (*sign_flas==0x73616c46 ) {
-		return FW_TYPE_QSDK;
-	}
 
 	if (*sign_ubi==0x23494255 ) {
 		return FW_TYPE_UBI;
@@ -196,66 +191,3 @@ int check_fw_type(void *address){
 		return -1;
 	return 0;
 }
-/*
-
-int auto_update_flags = 0;
-
-int check_network(int tryCount)
-{
-	if (tryCount <= 0) {
-		return 1;
-	}
-
-	while (tryCount--) {
-		if (run_command("ping 192.168.1.2", 0) == 0) {
-			auto_update_flags = 1;
-			break;
-		}
-		udelay (1000000);
-	}
-
-	if (auto_update_flags) {
-		return 0;
-	} else {
-		return 1;
-	}
-}
-
-int auto_update_by_tftp()
-{
-	int ret = -1;
-	char buf[128] = {0};
-	const char *file_sz_str;
-	unsigned long file_size;
-
-	if (check_network(2) != 0) {
-		//printf("host no alive.\n");
-		return -1;
-	}
-
-	if (run_command("tftpboot 0x44000000 openwrt-gl-mv1000.bin", 0) == 0) {
-		file_sz_str = getenv("filesize");
-		file_size = simple_strtoul(file_sz_str, NULL, 16);
-		if(check_fw_type((void *)0x44000000)==FW_TYPE_NOR){
-		printf("\n\n****************************\n*    FIRMWARE UPGRADING    *\n* DO NOT POWER OFF DEVICE! *\n****************************\n\n");
-		sprintf(buf,
-				"sf probe && sf update 0x%lx 0x%lx 0x%lx",
-				(unsigned long int)0x44000000,
-				(unsigned long int)WEBFAILSAFE_UPLOAD_FW_ADDRESS,
-				(unsigned long int)file_size);
-		}else if(check_fw_type((void *)0x44000000)==FW_TYPE_EMMC){
-			printf("\n\n****************************\n*    FIRMWARE UPGRADING    *\n* DO NOT POWER OFF DEVICE! *\n****************************\n\n");
-			sprintf(buf,
-					"mmc dev 0 && mmc erase 0 0x109800 && mmc write 0x%lx 0x%lx 0x%lx",
-					(unsigned long int)0x44000000,
-					(unsigned long int)0x0,
-					(unsigned long int)(file_size/512+1));
-		}else{
-			return(-1);
-		}
-		return(run_command(buf, 0));
-	}
-	return ret;
-}
-
-*/

@@ -28,22 +28,14 @@ void check_button_is_press(void);
 #define WEBFAILSAFE_UPLOAD_ART_ADDRESS                  0x660000
 #define WEBFAILSAFE_UPLOAD_FW_ADDRESS                   0x6a0000 //单nor情况,不会发生
 
-#define WEBFAILSAFE_UPLOAD_UBOOT_ADDRESS_NAND           0x800000
-#define WEBFAILSAFE_UPLOAD_ART_ADDRESS_NAND             0x980000
-#define WEBFAILSAFE_UPLOAD_FW_ADDRESS_NAND              0xa00000
-
 #define CONFIG_ART_START                  0x660000
 
 #define WEBFAILSAFE_UPLOAD_UBOOT_SIZE_IN_BYTES          (640*1024)
 #define WEBFAILSAFE_UPLOAD_ART_SIZE_IN_BYTES            (256*1024)
 
-#define WEBFAILSAFE_UPLOAD_UBOOT_SIZE_IN_BYTES_NAND     (1536*1024)
-#define WEBFAILSAFE_UPLOAD_ART_SIZE_IN_BYTES_NAND       (512*1024)
-
 #define FW_TYPE_NOR 0
 #define FW_TYPE_EMMC 1
-#define FW_TYPE_QSDK 2
-#define FW_TYPE_UBI 3
+#define FW_TYPE_UBI 2
 
 int check_test(void);
 int check_config(void);
